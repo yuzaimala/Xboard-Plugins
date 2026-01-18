@@ -1,0 +1,126 @@
+{
+    "name": "智能客服自动回复",
+    "code": "auto_reply",
+    "version": "1.0.0",
+    "description": "支持关键词自动回复、AI智能回复和转人工处理的客服系统",
+    "author": "https://github.com/yuzaimala/Xboard-Plugins",
+    "require": {
+        "xboard": ">=1.0.0"
+    },
+    "config": {
+        "enable_keyword_reply": {
+            "type": "boolean",
+            "default": true,
+            "label": "启用关键词回复",
+            "description": "开启关键词自动回复功能"
+        },
+        "enable_ai_reply": {
+            "type": "boolean",
+            "default": false,
+            "label": "启用AI回复",
+            "description": "开启AI智能回复功能（需要配置OpenAI API）"
+        },
+        "ai_api_key": {
+            "type": "string",
+            "default": "",
+            "label": "OpenAI API Key",
+            "description": "OpenAI API密钥，用于AI智能回复"
+        },
+        "ai_api_base": {
+            "type": "string",
+            "default": "https://api.openai.com/v1",
+            "label": "OpenAI API Base URL",
+            "description": "OpenAI API基础URL，可配置为代理地址"
+        },
+        "ai_model": {
+            "type": "string",
+            "default": "gpt-3.5-turbo",
+            "label": "AI模型",
+            "description": "使用的AI模型，如 gpt-3.5-turbo 或 gpt-4"
+        },
+        "ai_temperature": {
+            "type": "number",
+            "default": 0.7,
+            "label": "AI创造性",
+            "description": "AI回复的创造性程度，范围0-1，越大越随机"
+        },
+        "ai_max_tokens": {
+            "type": "number",
+            "default": 500,
+            "label": "AI回复最大长度",
+            "description": "AI回复的最大token数量"
+        },
+        "ai_timeout": {
+            "type": "number",
+            "default": 60,
+            "label": "AI API超时时间(秒)",
+            "description": "OpenAI API调用的超时时间，建议设置为30-120秒"
+        },
+        "ai_system_prompt": {
+            "type": "text",
+            "default": "你是一个专业的客服助手，负责回答用户关于VPN/代理服务的问题。请用友好、专业的态度回答用户问题。如果遇到无法回答的问题，请建议用户联系人工客服。",
+            "label": "AI系统提示词",
+            "description": "AI的系统提示词，定义AI的角色和行为"
+        },
+        "enable_user_context": {
+            "type": "boolean",
+            "default": true,
+            "label": "启用用户上下文注入",
+            "description": "在AI提示词中自动注入用户的套餐、流量、余额、佣金等信息"
+        },
+        "transfer_keywords": {
+            "type": "text",
+            "default": "转人工,人工客服,联系客服,人工服务",
+            "label": "转人工关键词",
+            "description": "触发转人工的关键词，多个关键词用逗号分隔"
+        },
+        "keyword_rules": {
+            "type": "text",
+            "default": "{\n  \"如何购买\": \"您可以通过以下步骤购买：\\n1. 注册账号\\n2. 选择套餐\\n3. 完成支付\\n\\n如需帮助，请回复'转人工'联系客服。\",\n  \"如何使用\": \"使用步骤：\\n1. 获取订阅链接\\n2. 下载客户端\\n3. 导入订阅\\n\\n详细教程请访问知识库。\",\n  \"忘记密码\": \"请使用邮箱重置密码：\\n1. 访问登录页面\\n2. 点击'忘记密码'\\n3. 按照邮件提示操作\",\n  \"流量用完\": \"流量用完后：\\n1. 等待下月自动重置\\n2. 或购买流量包\\n3. 或升级套餐\\n\\n需要帮助请回复'转人工'。\",\n  \"节点\": \"关于节点：\\n• 我们提供全球多个节点\\n• 支持自动选择最优节点\\n• 节点信息请在用户面板查看\\n\\n具体问题请回复'转人工'。\"\n}",
+            "label": "关键词规则",
+            "description": "关键词回复规则（JSON格式），键为关键词，值为回复内容"
+        },
+        "auto_reply_delay": {
+            "type": "number",
+            "default": 2,
+            "label": "自动回复延迟(秒)",
+            "description": "自动回复前的延迟时间，模拟人工回复"
+        },
+        "max_conversation_history": {
+            "type": "number",
+            "default": 20,
+            "label": "对话历史数量",
+            "description": "AI回复时参考的历史对话数量，设置为0则使用全部历史"
+        },
+        "enable_auto_close": {
+            "type": "boolean",
+            "default": false,
+            "label": "自动关闭工单",
+            "description": "AI回复后是否自动关闭工单"
+        },
+        "auto_reply_prefix": {
+            "type": "string",
+            "default": "[自动回复] ",
+            "label": "自动回复前缀",
+            "description": "自动回复消息的前缀标识"
+        },
+        "ai_reply_prefix": {
+            "type": "string",
+            "default": "[AI助手] ",
+            "label": "AI回复前缀",
+            "description": "AI回复消息的前缀标识"
+        },
+        "enable_telegram_notify": {
+            "type": "boolean",
+            "default": true,
+            "label": "转人工时Telegram通知",
+            "description": "用户请求转人工时通知管理员"
+        },
+        "speed_limit_warning": {
+            "type": "number",
+            "default": 50,
+            "label": "限速警告阈值(Mbps)",
+            "description": "当用户速度限制小于等于此值时，在提示词中提示这可能是卡顿和速度慢的原因，设置为0则不启用"
+        }
+    }
+}
